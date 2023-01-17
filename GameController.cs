@@ -117,23 +117,21 @@ public class GameController {
 
 			if (frame is GameFrame.Pending) {
 				break;
-			} else if(frame is GameFrame.Open) {
+			} else if (frame is GameFrame.Open || frame is GameFrame.LastFrame) {
 				scoreThisFrame = frame.NumberOfPinsKnockedDown;
 			} else {
 				scoreThisFrame = 10;
-				
-				if(_frame < 10) {
+
+				if (_frame < 10) {
 					GameFrame nextFrame = PlayerSessions[_currentPlayer].GameFrames[_frame + 1];
 
-					if(nextFrame != null && !(nextFrame is GameFrame.Pending)) {
-						if(frame is GameFrame.Strike) {
+					if (nextFrame != null && !(nextFrame is GameFrame.Pending)) {
+						if (frame is GameFrame.Strike) {
 							scoreThisFrame += nextFrame.NumberOfPinsKnockedDown;
-						} else if(frame is GameFrame.Spare) {
+						} else if (frame is GameFrame.Spare) {
 							scoreThisFrame += nextFrame.Shots.FirstOrDefault();
 						}
 					}
-				} else {
-					// TODO: Implement
 				}
 			}
 
